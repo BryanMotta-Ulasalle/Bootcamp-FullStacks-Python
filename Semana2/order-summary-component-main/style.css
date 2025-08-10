@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Red Hat Display", sans-serif;
+    background-color: hsl(225, 100%, 94%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 16px;
+}
+
+main{
+    max-width: 400px;
+    display: flex;
+    border-radius: 15px;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.image{
+    height: 30vh;
+    width: 100%;
+    background-color: red;
+    background-image: url(/Semana2/order-summary-component-main/images/illustration-hero.svg);
+    background-size: cover;
+    background-position: center;
+}
+
+.content{
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    gap: 20px;
+    padding: 40px;
+}
+
+.content h1 {
+    text-align: center;
+    font-weight: 900;
+}
+
+.content p{
+    color: hsl(224, 23%, 55%);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.price img{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.price{
+    background-color: hsl(225, 100%, 98%);
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 15px;
+    align-items: center;
+}
+
+.price a{
+    text-align: center;
+    color: hsl(245, 75%, 52%);
+    font-weight: 700;
+    margin-left: auto;
+}
+
+button{
+    font-family: "Red Hat Display", sans-serif;
+    font-weight: 700;
+    border: 0;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.button1{
+    background-color: hsl(245, 75%, 52%);
+    color: white;
+}
+
+.button2{
+    color: hsl(223, 47%, 23%);
+    background-color: white;
+    
+}
+
+
