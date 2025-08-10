@@ -1,0 +1,104 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+
+  background-color: hsl(30, 38%, 92%);
+
+  display: flex;
+  /* alinea el contenido horizontalmente */
+  justify-content: center;
+  /* alinea el contenido vericalmente */
+  align-items: center;
+
+  height: 100dvh;
+}
+
+h1, h2, p {
+  margin: 0;
+}
+
+main {
+  /* border: 1px solid red; */
+
+  width: 650px;
+  min-height: 400px;
+
+  display: flex;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+}
+
+.photo {
+     /*background: url('/Semana2/Product-car/images/image-product-desktop.jpg') no-repeat cover;*/
+  background-color: orange;
+
+  width: 350px;
+   
+  background-image: url(./images/image-product-desktop.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.content {
+  background-color: white;
+
+  width: 300px;
+   padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.content h2 {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 500; /* Peso de la letra o ancho de la letra */
+  color: hsl(228, 12%, 48%);
+  letter-spacing: 7px;
+}
+
+.content h1{
+    font-size: 42px;
+    color:hsl(212, 21%, 14%);
+    font-family: "Fraunces", serif;
+}
+
+.content p {
+  font-weight: 500;
+  line-height: 1.5;
+  color: hsl(228, 12%, 48%);
+}
+
+.content span {
+  font-family: "Fraunces", serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: hsl(158, 36%, 37%);
+}
+
+.content del {
+  color: hsl(228, 12%, 48%);
+  font-weight: 500;
+}
+
+.content button {
+  border: 0;
+  
+  font-family: inherit; /* Toma los estilos de la fuente padre */
+  font-weight: 700;
+  background-color: hsl(158, 36%, 37%);
+  color: hsl(0, 0%, 100%);
+  padding: 14px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+
+  border-radius: 7px;
+  cursor: pointer;
+}
