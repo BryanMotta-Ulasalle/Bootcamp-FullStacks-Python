@@ -1,0 +1,67 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+main{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    min-height: 100vh;
+    overflow: hidden;
+    background-image: url(/Semana2/huddle-landing-page-with-single-introductory-section-master/images/bg-desktop.svg);
+    background-color: hsl(257, 40%, 49%);
+    gap: 50px;
+}
+
+.logo{
+    width: 200px;
+}
+
+.content-container{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
+    
+}
+
+.content h1{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size: 42px;
+    color: white;
+}
+
+.content p{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 100;
+    font-size: 18px;
+    color: white;
+}
+
+.content button{
+    border: 0;
+    height: auto;
+    width: auto;
+    align-self: flex-start;
+    padding: 10px 50px;
+    border-radius: 20px;
+    color: hsl(257, 40%, 49%);
+    cursor: pointer;
+    box-shadow: 5px 10px 15px 3px rgba(0,0,0,0.5);
+
+}
+
+
+
+
+
