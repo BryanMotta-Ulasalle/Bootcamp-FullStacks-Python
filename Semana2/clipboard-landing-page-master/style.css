@@ -1,0 +1,273 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    font-family: "Bai Jamjuree", sans-serif;
+    justify-content: center;
+    font-size: 18px;
+    flex-direction: column;
+}
+
+h1,
+h2 {
+    font-weight: 600;
+    color: hsl(210, 10%, 33%);
+}
+
+p {
+    font-weight: 400;
+    color: hsl(201, 11%, 66%);
+    letter-spacing: .5px;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(/Semana2/clipboard-landing-page-master/images/bg-header-desktop.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    gap: 40px;
+    padding: 100px;
+
+}
+
+.logo-header {
+    width: 100px;
+}
+
+.content-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 50vw;
+    padding: 0px 20px;
+    text-align: center;
+}
+
+.buttons-header {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.buttons-header button {
+    border: 0;
+    width: auto;
+    height: auto;
+    padding: 15px 40px;
+    border-radius: 25px;
+    color: white;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 18px;
+    
+}
+
+.button1 {
+    background-color: hsl(171, 66%, 44%);
+    cursor: pointer;
+}
+
+.button2 {
+    background-color: hsl(233, 100%, 69%);
+    cursor: pointer;
+}
+
+.section1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content1-section1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    width: 50%;
+    gap: 15px;
+}
+
+
+
+.content2-section1 {
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+}
+
+.content-pc {
+    display: flex;
+    flex-direction: column;
+    padding: 70px;
+    gap: 60px;
+}
+
+.content-pc>div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section2 {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    align-items: center;
+    gap: 50px;
+}
+
+.content-section2 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    width: 50%;
+}
+
+.section3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.content-section3 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.content2-section3 {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 90%;
+}
+
+.content2-section3>div {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+    flex: 1;
+    padding: 20px;
+}
+
+
+.content2-section3 img {
+    width: 50px;
+}
+
+.content2-section3>div>div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+}
+
+.content2-section3 p {
+    line-height: 2;
+}
+
+.section4 {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    width: 100vw;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+}
+
+.section5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 50px;
+
+}
+
+.content-section5 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    width: 50%;
+}
+
+.buttons-section5 {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+}
+
+.buttons-section5 button {
+    border: 0;
+    width: auto;
+    height: auto;
+    padding: 15px 40px;
+    border-radius: 25px;
+    color: white;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 18px;
+
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    padding: 50px 100px;
+    align-items: center;
+    background-color: hsl(201, 11%, 66%);
+    gap: 100px;
+}
+
+footer img {
+    width: 50px;
+    height: 50px;
+    margin-left: 50px;
+}
+
+.content-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-right: 200px;
+    margin-left: 50px;
+}
+
+.content-footer a {
+    flex: 0 0 calc(33.33% - 30px);
+    text-decoration: none;
+    color: hsl(210, 10%, 33%);
+    text-align: center;
+}
+
+.social{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+     margin-left: auto;
+}
+
+.social img{
+    width: 25px;
+    height: 25px;
+    margin: 0;
+}
