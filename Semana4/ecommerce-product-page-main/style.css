@@ -1,0 +1,138 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+     font-family: "Kumbh Sans", sans-serif;
+     font-size: 16px;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    width: min(90% - 2rem, 1440px);
+    height: 100px;
+
+    justify-content: space-between;
+
+}
+
+.nav{
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.nav a{
+    text-decoration: none;
+    color: hsl(219, 9%, 45%);
+}
+
+.icons{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+
+}
+
+.img1{
+    width: 20px;
+}
+
+.img2{
+    width: 40px;
+}
+
+main{
+
+    width: min(70%, 1440px);
+    height: 100%;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.images{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+}
+.images__image img{
+    width: 500px;
+    border-radius: 1rem;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+    flex: 1;
+}
+
+.content__title h6{
+    color: hsl(219, 9%, 45%);
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+}
+
+.content__title h1{
+    font-weight: 700;
+    font-size: 2rem;
+
+}
+
+.content__p{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    color: hsl(219, 9%, 45%);
+
+}
+
+.price{
+    font-weight: 700;
+    color: black;
+    font-size: 1.2rem;
+    margin-right: .5rem;
+}
+
+.disconunt{
+    border: 2px solid black;
+    padding: .1rem .3rem;
+    border-radius: .5rem;
+    background-color: black;
+    color: white;
+}
+del{
+    color: hsl(219, 9%, 45%);
+    font-weight: 700;
+}
+
+.cart{display: flex;
+    gap: .8rem;
+    align-items: center;
+    padding: .5rem 4rem;
+    border-radius: .5rem;
+    border: 0;
+    background-color: hsl(26, 100%, 55%);
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.cart svg path{
+    fill: black;
+    
+}
