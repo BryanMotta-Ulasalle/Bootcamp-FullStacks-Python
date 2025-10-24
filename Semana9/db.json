@@ -71,6 +71,14 @@
       "release": "2023-04-05",
       "genreId": 3,
       "summary": "Resumen de prueba"
+    },
+    {
+      "name": "Spideman-modificado",
+      "image": "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
+      "release": "2025-09-25",
+      "genderId": 1,
+      "sumary": "resumen de prueba-modificado",
+      "id": 11
     }
   ]
 }

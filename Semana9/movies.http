@@ -1,0 +1,37 @@
+### Listar todas las peliculas
+
+GET http://localhost:3000/movies
+
+### Obtener una pelicula
+
+GET http://localhost:3000/movies/9
+
+### Crear una pelicula
+
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+    "name": "Spideman",
+    "image": "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
+    "release": "2025-09-25",
+    "genderId": 1,
+    "sumary": "resumen de prueba"
+}
+
+### Borrar pelicula
+
+DELETE http://localhost:3000/movies/10
+
+### Actualizar una pelicula
+
+PUT http://localhost:3000/movies/11
+Content-Type: application/json
+
+{
+    "name": "Spideman-modificado",
+    "image": "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
+    "release": "2025-09-25",
+    "genderId": 1,
+    "sumary": "resumen de prueba-modificado"
+}
