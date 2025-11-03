@@ -1,0 +1,21 @@
+/* Programa de prueba Mini-0 */
+fun main() : int
+    // Declaración de variables
+    a: int
+    b: bool
+    c: []char
+
+    // Literales y Expresiones
+    a = 15 + 0x0f // 15 + 15 = 30
+    b = true and not false
+
+    // String con escapes
+    c = "Hola\n Mundo\t"
+    
+    if a >= 30 loop
+        // Error Lexico: Caracter Invalido
+        $
+    end
+
+    return a
+end
