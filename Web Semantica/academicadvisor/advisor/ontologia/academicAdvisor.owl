@@ -1,0 +1,1060 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.ontologia-academica.org/academic#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.ontologia-academica.org/academic#"
+     versionIRI="http://www.ontologia-academica.org/academic/1.0#">
+    <Prefix name="" IRI="http://www.semanticweb.org/user/ontologies/2025/9/untitled-ontology-2/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="Carrera"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Competencia"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Curso"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="CursoInicial"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="CursoPesado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="CursoPrioritario"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Docente"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Estudiante"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="EstudianteAvanzado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Persona"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Recomendacion"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="agrupa"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="cumpleCompetencia"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="cursa"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="enseña"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="enseñaCompetencia"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="esCursadoPor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="esEnseñadoPor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="esGeneradaPor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="generaRecomendacion"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="noHaCursado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="perteneceA"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="requiereCompetencia"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="tienePreRequisito"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="ciclo"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="creditos"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="nivelActual"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="nombreCurso"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="tienePromedio"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="AnalisisDiseñoAlgoritmos"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Bryan"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="ComputacionDistribuida"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="David"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="GestionProyectos"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="IngenieriaSoftware"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="IngenieriaWeb"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="IntroduccionProgramacion"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Juan"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="LenguajeProgramacion1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="LenguajeProgramacion2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Luis"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Marco"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Ontologias"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Pedro"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Rec1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Redes"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="Semantica"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="SistemasOperativos"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="Docente"/>
+        <Class IRI="Persona"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Estudiante"/>
+        <Class IRI="Persona"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Estudiante"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="nivelActual"/>
+            <DatatypeRestriction>
+                <Datatype abbreviatedIRI="xsd:int"/>
+                <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
+                    <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">1</Literal>
+                </FacetRestriction>
+                <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#maxInclusive">
+                    <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">10</Literal>
+                </FacetRestriction>
+            </DatatypeRestriction>
+        </DataSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Estudiante"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="tienePromedio"/>
+            <DatatypeRestriction>
+                <Datatype abbreviatedIRI="xsd:decimal"/>
+                <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
+                    <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">0.0</Literal>
+                </FacetRestriction>
+                <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#maxInclusive">
+                    <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">20.0</Literal>
+                </FacetRestriction>
+            </DatatypeRestriction>
+        </DataSomeValuesFrom>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="AnalisisDiseñoAlgoritmos"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Estudiante"/>
+        <NamedIndividual IRI="Bryan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="ComputacionDistribuida"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Estudiante"/>
+        <NamedIndividual IRI="David"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="GestionProyectos"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Carrera"/>
+        <NamedIndividual IRI="IngenieriaSoftware"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="IngenieriaWeb"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="IntroduccionProgramacion"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="LenguajeProgramacion1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="LenguajeProgramacion2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Estudiante"/>
+        <NamedIndividual IRI="Luis"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Docente"/>
+        <NamedIndividual IRI="Marco"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Competencia"/>
+        <NamedIndividual IRI="Ontologias"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Estudiante"/>
+        <NamedIndividual IRI="Pedro"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Recomendacion"/>
+        <NamedIndividual IRI="Rec1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="Redes"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="Semantica"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="Curso"/>
+        <NamedIndividual IRI="SistemasOperativos"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="AnalisisDiseñoAlgoritmos"/>
+        <NamedIndividual IRI="LenguajeProgramacion2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="perteneceA"/>
+        <NamedIndividual IRI="Bryan"/>
+        <NamedIndividual IRI="IngenieriaSoftware"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="ComputacionDistribuida"/>
+        <NamedIndividual IRI="Redes"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="perteneceA"/>
+        <NamedIndividual IRI="David"/>
+        <NamedIndividual IRI="IngenieriaSoftware"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="GestionProyectos"/>
+        <NamedIndividual IRI="Semantica"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="IngenieriaWeb"/>
+        <NamedIndividual IRI="ComputacionDistribuida"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="perteneceA"/>
+        <NamedIndividual IRI="Juan"/>
+        <NamedIndividual IRI="IngenieriaSoftware"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="LenguajeProgramacion1"/>
+        <NamedIndividual IRI="IntroduccionProgramacion"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="LenguajeProgramacion2"/>
+        <NamedIndividual IRI="LenguajeProgramacion2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="perteneceA"/>
+        <NamedIndividual IRI="Luis"/>
+        <NamedIndividual IRI="IngenieriaSoftware"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="perteneceA"/>
+        <NamedIndividual IRI="Pedro"/>
+        <NamedIndividual IRI="IngenieriaSoftware"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="Redes"/>
+        <NamedIndividual IRI="SistemasOperativos"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="Semantica"/>
+        <NamedIndividual IRI="IngenieriaWeb"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <NamedIndividual IRI="SistemasOperativos"/>
+        <NamedIndividual IRI="AnalisisDiseñoAlgoritmos"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="AnalisisDiseñoAlgoritmos"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="AnalisisDiseñoAlgoritmos"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="AnalisisDiseñoAlgoritmos"/>
+        <Literal>Analisis y diseño de Algoritmos</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nivelActual"/>
+        <NamedIndividual IRI="Bryan"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="tienePromedio"/>
+        <NamedIndividual IRI="Bryan"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">19</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="ComputacionDistribuida"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="ComputacionDistribuida"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="ComputacionDistribuida"/>
+        <Literal>Computacion Distribuida y Paralela</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nivelActual"/>
+        <NamedIndividual IRI="David"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="tienePromedio"/>
+        <NamedIndividual IRI="David"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">18</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="GestionProyectos"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="GestionProyectos"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="GestionProyectos"/>
+        <Literal>Gestion de Proyectos de Software</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="IngenieriaWeb"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="IngenieriaWeb"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">6</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="IngenieriaWeb"/>
+        <Literal>Ingenieria Web</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="IntroduccionProgramacion"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="IntroduccionProgramacion"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="IntroduccionProgramacion"/>
+        <Literal>Introduccion a la Programacion</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="LenguajeProgramacion1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="LenguajeProgramacion1"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="LenguajeProgramacion1"/>
+        <Literal>Lenguaje de Programacion 1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="LenguajeProgramacion2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="LenguajeProgramacion2"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="LenguajeProgramacion2"/>
+        <Literal>Lenguaje de Programacion 2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nivelActual"/>
+        <NamedIndividual IRI="Luis"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="tienePromedio"/>
+        <NamedIndividual IRI="Luis"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">13</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nivelActual"/>
+        <NamedIndividual IRI="Pedro"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="tienePromedio"/>
+        <NamedIndividual IRI="Pedro"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">18</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="Redes"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">6</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="Redes"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="Redes"/>
+        <Literal>Redes y Comunicacion de Datos</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="Semantica"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">9</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="Semantica"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">6</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="Semantica"/>
+        <Literal>Web Semantica y Ontologias</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="ciclo"/>
+        <NamedIndividual IRI="SistemasOperativos"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="creditos"/>
+        <NamedIndividual IRI="SistemasOperativos"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="nombreCurso"/>
+        <NamedIndividual IRI="SistemasOperativos"/>
+        <Literal>Sistemas Operativos</Literal>
+    </DataPropertyAssertion>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="agrupa"/>
+        <ObjectProperty IRI="perteneceA"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="cursa"/>
+        <ObjectProperty IRI="esCursadoPor"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="enseña"/>
+        <ObjectProperty IRI="esEnseñadoPor"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="esGeneradaPor"/>
+        <ObjectProperty IRI="generaRecomendacion"/>
+    </InverseObjectProperties>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="perteneceA"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="agrupa"/>
+        <Class IRI="Carrera"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="cumpleCompetencia"/>
+        <Class IRI="Estudiante"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="cursa"/>
+        <Class IRI="Estudiante"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="enseña"/>
+        <Class IRI="Docente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="enseñaCompetencia"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="esCursadoPor"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="esEnseñadoPor"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="esGeneradaPor"/>
+        <Class IRI="Recomendacion"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="generaRecomendacion"/>
+        <Class IRI="Estudiante"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="noHaCursado"/>
+        <Class IRI="Estudiante"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="perteneceA"/>
+        <Class IRI="Estudiante"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="requiereCompetencia"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="agrupa"/>
+        <Class IRI="Estudiante"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="cumpleCompetencia"/>
+        <Class IRI="Competencia"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="cursa"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="enseña"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="enseñaCompetencia"/>
+        <Class IRI="Competencia"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="esCursadoPor"/>
+        <Class IRI="Estudiante"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="esEnseñadoPor"/>
+        <Class IRI="Docente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="esGeneradaPor"/>
+        <Class IRI="Estudiante"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="generaRecomendacion"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="noHaCursado"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="perteneceA"/>
+        <Class IRI="Carrera"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="requiereCompetencia"/>
+        <Class IRI="Competencia"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="tienePreRequisito"/>
+        <Class IRI="Curso"/>
+    </ObjectPropertyRange>
+    <DisjointObjectProperties>
+        <ObjectProperty IRI="cursa"/>
+        <ObjectProperty IRI="noHaCursado"/>
+    </DisjointObjectProperties>
+    <DataPropertyDomain>
+        <DataProperty IRI="ciclo"/>
+        <Class IRI="Curso"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="creditos"/>
+        <Class IRI="Curso"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="nivelActual"/>
+        <Class IRI="Estudiante"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="nombreCurso"/>
+        <Class IRI="Curso"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="tienePromedio"/>
+        <Class IRI="Estudiante"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="ciclo"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="creditos"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="nivelActual"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="nombreCurso"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="tienePromedio"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>RecomendarCursoCarrera</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="Estudiante"/>
+                <Variable abbreviatedIRI=":e"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="nivelActual"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":n"/>
+            </DataPropertyAtom>
+            <ClassAtom>
+                <Class IRI="Curso"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="ciclo"/>
+                <Variable abbreviatedIRI=":c"/>
+                <Variable abbreviatedIRI=":cs"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#add">
+                <Variable abbreviatedIRI=":n"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+                <Variable abbreviatedIRI=":next_n"/>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#equal">
+                <Variable abbreviatedIRI=":cs"/>
+                <Variable abbreviatedIRI=":next_n"/>
+            </BuiltInAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="perteneceA"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":car"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="perteneceA"/>
+                <Variable abbreviatedIRI=":c"/>
+                <Variable abbreviatedIRI=":car"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="noHaCursado"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="generaRecomendacion"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>cursoPesado</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="Curso"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="creditos"/>
+                <Variable abbreviatedIRI=":c"/>
+                <Variable abbreviatedIRI=":cr"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThan">
+                <Variable abbreviatedIRI=":cr"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="ciclo"/>
+                <Variable abbreviatedIRI=":c"/>
+                <Variable abbreviatedIRI=":ci"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual">
+                <Variable abbreviatedIRI=":ci"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">8</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="CursoPesado"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>CursoInicial</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="Curso"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="ciclo"/>
+                <Variable abbreviatedIRI=":c"/>
+                <Variable abbreviatedIRI=":ci"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThanOrEqual">
+                <Variable abbreviatedIRI=":ci"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="CursoInicial"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>RecomendarPreRequisito</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="Estudiante"/>
+                <Variable abbreviatedIRI=":e"/>
+            </ClassAtom>
+            <ClassAtom>
+                <Class IRI="Curso"/>
+                <Variable abbreviatedIRI=":c1"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="tienePreRequisito"/>
+                <Variable abbreviatedIRI=":c1"/>
+                <Variable abbreviatedIRI=":c2"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="noHaCursado"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":c2"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="generaRecomendacion"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":c2"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>RecomendacionCursoBajo</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="Estudiante"/>
+                <Variable abbreviatedIRI=":e"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="tienePromedio"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":p"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThan">
+                <Variable abbreviatedIRI=":p"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">14.0</Literal>
+            </BuiltInAtom>
+            <ClassAtom>
+                <Class IRI="CursoInicial"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="noHaCursado"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="generaRecomendacion"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>CursoPrioridad</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="EstudianteAvanzado"/>
+                <Variable abbreviatedIRI=":e"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="nivelActual"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":n"/>
+            </DataPropertyAtom>
+            <ClassAtom>
+                <Class IRI="CursoPesado"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="ciclo"/>
+                <Variable abbreviatedIRI=":c"/>
+                <Variable abbreviatedIRI=":cs"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#add">
+                <Variable abbreviatedIRI=":n"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+                <Variable abbreviatedIRI=":next_n"/>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#equal">
+                <Variable abbreviatedIRI=":cs"/>
+                <Variable abbreviatedIRI=":next_n"/>
+            </BuiltInAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="perteneceA"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":car"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="perteneceA"/>
+                <Variable abbreviatedIRI=":c"/>
+                <Variable abbreviatedIRI=":car"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="noHaCursado"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="generaRecomendacion"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":c"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>EstudianteAvanzado</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="Estudiante"/>
+                <Variable abbreviatedIRI=":e"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="tienePromedio"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":p"/>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="nivelActual"/>
+                <Variable abbreviatedIRI=":e"/>
+                <Variable abbreviatedIRI=":n"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual">
+                <Variable abbreviatedIRI=":n"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">7</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="EstudianteAvanzado"/>
+                <Variable abbreviatedIRI=":e"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>cursa</IRI>
+        <Literal>Un estudiante cursa un curso</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>enseña</IRI>
+        <Literal>Un docente enseña un curso</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>generaRecomendacion</IRI>
+        <Literal>El estudiante genera una recomendación</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>perteneceA</IRI>
+        <Literal>Un estudiante pertenece a una carrera</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

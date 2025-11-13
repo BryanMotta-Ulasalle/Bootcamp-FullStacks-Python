@@ -1,0 +1,65 @@
+############################
+#        SISTEMA
+############################
+.DS_Store
+Thumbs.db
+
+############################
+#        ENTORNOS
+############################
+# Python venv
+venv/
+venv*/
+.env/
+.env*/
+*.env
+*.env.*
+
+# Node
+node_modules/
+
+############################
+#        DJANGO
+############################
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Base de datos local
+db.sqlite3
+db.sqlite3-journal
+
+# Logs
+*.log
+
+# Archivos temporales de Django
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
+############################
+#        REACT
+############################
+# Builds
+build/
+dist/
+
+# Archivos de configuración locales
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+############################
+#        EDITORES
+############################
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# JetBrains / PyCharm
+.idea/
+
+# Otros
+*.swp
+*.swo
