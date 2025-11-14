@@ -25,7 +25,8 @@ from .ontology_manager import (
     obtener_recursos_recomendados,
     obtener_ruta_aprendizaje,
     obtener_cursos_en_ruta,
-    obtener_recursos_en_ruta
+    obtener_recursos_en_ruta,
+    inferir_recursos_recomendados
 )
 
 # =========================================
@@ -34,39 +35,79 @@ from .ontology_manager import (
 def recomendaciones(request, nombre_persona):
     """
     GET /recomendaciones/<nombre_persona>/
-    Retorna recomendaciones de cursos basadas en habilidades deseadas.
+    Retorna recomendaciones de cursos y recursos inferidos.
     """
     try:
+        # --------------------------
         # Buscar estudiante
+        # --------------------------
         estudiante = buscar_estudiante(nombre_persona)
-        
-        # Obtener información del estudiante
+
+        # Datos básicos del estudiante
         nombre = getattr(estudiante, "nombrePersona", [""])[0]
         habilidades = obtener_habilidades_poseidas(estudiante)
         carrera = obtener_carrera_estudiante(estudiante)
-        carrera_nombre = getattr(carrera, "nombreCarrera", ["Sin carrera"])[0] if carrera else "Sin carrera"
-        
-        # Obtener cursos aprobados
+
+        carrera_nombre = (
+            getattr(carrera, "nombreCarrera", ["Sin carrera"])[0]
+            if carrera else "Sin carrera"
+        )
+
+        # --------------------------
+        # Cursos aprobados (inferidos)
+        # --------------------------
         aprobados = obtener_cursos_aprobados(estudiante)
         cursos_aprobados = [
-            getattr(c, "nombreCurso", ["Desconocido"])[0]
-            for c in aprobados
+            getattr(c, "nombreCurso", ["Desconocido"])[0] for c in aprobados
         ]
-        
-        # Obtener recomendaciones por habilidad
+
+        # --------------------------
+        # Recomendación de cursos
+        # --------------------------
         recomendaciones_dict = recomendar_todos_cursos(estudiante)
-        
+
+        # --------------------------
+        # Recursos recomendados (tu regla grande)
+        # --------------------------
+        recursos_recomendados = inferir_recursos_recomendados(estudiante)
+
+        recursos_json = []
+        for recurso in recursos_recomendados:
+            nombre_recurso = getattr(recurso, "nombreRecurso", [""])[0] \
+                             if hasattr(recurso, "nombreRecurso") \
+                             else recurso.name
+            
+            formatos = [
+                f.name for f in getattr(recurso, "recursoTieneFormato", [])
+            ]
+
+            # Si quieres mostrar qué curso usa ese recurso (opcional pero útil):
+            cursos_relacionados = getattr(recurso, "utilizadoEnCurso", [])
+            cursos_rel_json = [
+                getattr(c, "nombreCurso", [""])[0] for c in cursos_relacionados
+            ]
+
+            recursos_json.append({
+                "recurso": nombre_recurso,
+                "formatos": formatos,
+                "usado_en_cursos": cursos_rel_json
+            })
+
+        # --------------------------
+        # Respuesta JSON final
+        # --------------------------
         return JsonResponse({
             "estudiante": nombre,
             "carrera": carrera_nombre,
+            "habilidades_poseidas": [h["nombre"] for h in habilidades],
             "cursos_aprobados": cursos_aprobados,
-            "habilidades_deseadas": [h["nombre"] for h in habilidades],
-            "recomendaciones_por_habilidad": recomendaciones_dict,
-            "total_cursos_recomendados": sum(len(cursos) for cursos in recomendaciones_dict.values())
+            "cursos_recomendados": recomendaciones_dict,
+            "recursos_recomendados": recursos_json
         })
-        
+
     except ValueError as e:
         return JsonResponse({"error": str(e)}, status=404)
+
     except Exception as e:
         return JsonResponse({"error": f"Error interno: {str(e)}"}, status=500)
 
@@ -77,12 +118,12 @@ def recomendaciones(request, nombre_persona):
 @require_http_methods(["POST"])
 def crear_estudiante(request):
     """
-    POST /crear_estudiante/
+    POST /api/crear_estudiante/
     Body JSON:
     {
         "nombre": "Juan Perez",
         "carrera": "Ingenieria de Sistemas",
-        "habilidad_deseada": ["HTML", "CSS"],
+        "habilidad_poseidas": ["HTML", "CSS"],
         "objetivo": "Desarrollo Web",
         "estilo": "Practico"
     }
@@ -92,7 +133,7 @@ def crear_estudiante(request):
 
         nombre = data.get("nombre")
         carrera_nombre = data.get("carrera")
-        habilidades = data.get("habilidad_deseada")
+        habilidades = data.get("habilidad_poseidas")
         objetivo = data.get("objetivo")
         estilo = data.get("estilo")
 
@@ -100,7 +141,7 @@ def crear_estudiante(request):
         if not all([nombre, carrera_nombre, habilidades]):
             return JsonResponse({
                 "error": "Faltan datos requeridos",
-                "requeridos": ["nombre", "carrera", "habilidad_deseada"]
+                "requeridos": ["nombre", "carrera", "habilidad_poseidas"]
             }, status=400)
 
         # Asegurar que habilidades sea siempre lista
@@ -224,8 +265,8 @@ def perfil_estudiante(request, nombre_persona):
             for c in matriculados
         ]
         
-        # Habilidades deseadas
-        habilidades = obtener_habilidades_deseadas(estudiante)
+        # Habilidades poseidas
+        habilidades = obtener_habilidades_poseidas(estudiante)
         
         return JsonResponse({
             "estudiante": {
@@ -233,7 +274,7 @@ def perfil_estudiante(request, nombre_persona):
                 "carrera": carrera_nombre,
                 "cursos_aprobados": cursos_aprobados,
                 "cursos_matriculados": cursos_matriculados,
-                "habilidades_deseadas": [h["nombre"] for h in habilidades],
+                "habilidades_poseidas": [h["nombre"] for h in habilidades],
                 "total_creditos_aprobados": len(cursos_aprobados)
             }
         })

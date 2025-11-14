@@ -58,9 +58,39 @@ def buscar_estudiante(nombre_persona):
     
     raise ValueError(f"No se encontró el estudiante '{nombre_persona}' en la ontología")
 
+def inferir_cursos_aprobados(estudiante):
+    """
+    Aplica manualmente la regla:
+    Estudiante(e) ^ poseeHabilidad(e,h) ^ Curso(c) ^ habilidadCurso(c,h) -> aproboCurso(e,c)
+    y retorna la lista de cursos inferidos.
+    """
+
+    clases = obtener_clases_ontologia()
+    Curso = clases["Curso"]
+
+    # Obtener habilidades del estudiante
+    habilidades_est = list(getattr(estudiante, "poseeHabilidad", []))
+
+    cursos_aprobados = set()
+
+    # Para cada curso...
+    for curso in Curso.instances():
+        # Obtener habilidades requeridas por ese curso
+        habilidades_curso = list(getattr(curso, "habilidadCurso", []))
+
+        # Si alguna habilidad coincide, el curso se infiere como aprobado
+        if any(h in habilidades_curso for h in habilidades_est):
+            cursos_aprobados.add(curso)
+
+    return list(cursos_aprobados)
+
+
 def obtener_cursos_aprobados(estudiante):
-    """Retorna lista de cursos aprobados por el estudiante."""
-    return list(getattr(estudiante, "aproboCurso", []))
+    """
+    Retorna cursos aprobados usando la inferencia manual.
+    """
+    return inferir_cursos_aprobados(estudiante)
+
 
 def obtener_cursos_matriculados(estudiante):
     """Retorna lista de cursos en los que está matriculado."""
@@ -101,6 +131,46 @@ def obtener_habilidades_poseidas(estudiante):
         }
         for h in habilidades
     ]
+def inferir_recursos_recomendados(estudiante):
+    """
+    Aplica en Python la regla:
+    Si un estudiante recomienda un curso y su estilo coincide con el formato
+    de un recurso del curso -> recomendar ese recurso.
+    """
+
+    recursos_recomendados = set()
+
+    # 1. Obtener el estilo de aprendizaje del estudiante
+    estilos = getattr(estudiante, "prefiereEstilo", [])
+    if not estilos:
+        return []  # sin estilo, sin inferencia
+    estilo = estilos[0]
+
+    # 2. Obtener formatos asociados a ese estilo
+    formatos_coincidentes = getattr(estilo, "formatoCoincideConEstilo", [])
+
+    # 3. Obtener cursos recomendados por el estudiante
+    cursos_recomendados = getattr(estudiante, "recomienda", [])
+
+    for curso in cursos_recomendados:
+        # 4. Obtener recursos utilizados por ese curso
+        recursos = getattr(curso, "cursoUtilizaRecurso", [])
+
+        for recurso in recursos:
+            # 5. Formatos asociados al recurso
+            formatos_recurso = getattr(recurso, "recursoTieneFormato", [])
+
+            # 6. Verificar coincidencia de formatos
+            if any(f in formatos_recurso for f in formatos_coincidentes):
+                recursos_recomendados.add(recurso)
+
+    # Guardar la inferencia en el objeto estudiante (opcional)
+    if recursos_recomendados:
+        if not hasattr(estudiante, "recomiendaRecurso"):
+            estudiante.recomiendaRecurso = []
+        estudiante.recomiendaRecurso.extend(list(recursos_recomendados))
+
+    return list(recursos_recomendados)
 
 def obtener_estilo_aprendizaje(estudiante):
     """Retorna el estilo de aprendizaje preferido del estudiante."""
