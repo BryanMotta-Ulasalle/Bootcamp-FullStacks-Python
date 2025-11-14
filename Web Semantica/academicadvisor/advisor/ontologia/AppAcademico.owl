@@ -8,7 +8,7 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:swrl="http://www.w3.org/2003/11/swrl#"
      xmlns:unti="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/"
-     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:swrl2="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
      xmlns:swrlb="http://www.w3.org/2003/11/swrlb#">
     <owl:Ontology rdf:about="http://www.ontologia-academica.org/academic#">
         <owl:versionIRI rdf:resource="http://www.ontologia-academica.org/academic/1.0"/>
@@ -171,38 +171,11 @@
     
 
 
-    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/cursa -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/cursa">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Estudiante"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Curso"/>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/cursaCarrera -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/cursaCarrera">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Estudiante"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Carrera"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/cursaCurso -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/cursaCurso">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Estudiante"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Curso"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/deseaHabilidad -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/deseaHabilidad">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Estudiante"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Habilidad"/>
     </owl:ObjectProperty>
     
 
@@ -234,15 +207,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/tieneCompetencia -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/tieneCompetencia">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Curso"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Habilidad"/>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/tienePreRequisito -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/tienePreRequisito">
@@ -263,10 +227,28 @@
     
 
 
+    <!-- http://www.ontologia-academica.org/academic#nombreEstilo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologia-academica.org/academic#nombreEstilo">
+        <rdfs:domain rdf:resource="http://www.ontologia-academica.org/academic#EstiloAprendizaje"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.ontologia-academica.org/academic#nombreHabilidad -->
 
     <owl:DatatypeProperty rdf:about="http://www.ontologia-academica.org/academic#nombreHabilidad">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Habilidad"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ontologia-academica.org/academic#nombreObjetivo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ontologia-academica.org/academic#nombreObjetivo">
+        <rdfs:domain rdf:resource="http://www.ontologia-academica.org/academic#ObjetivoFinal"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
@@ -277,15 +259,6 @@
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/creditos">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Curso"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/descripcionCompetencia -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/descripcionCompetencia">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Habilidad"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
 
@@ -534,6 +507,7 @@
     <owl:NamedIndividual rdf:about="http://www.ontologia-academica.org/academic#practico">
         <rdf:type rdf:resource="http://www.ontologia-academica.org/academic#EstiloAprendizaje"/>
         <formatoCoincideConEstilo rdf:resource="http://www.ontologia-academica.org/academic#Recurso_Practico"/>
+        <nombreEstilo>Practico</nombreEstilo>
     </owl:NamedIndividual>
     
 
@@ -560,6 +534,7 @@
     <owl:NamedIndividual rdf:about="http://www.ontologia-academica.org/academic#teorico">
         <rdf:type rdf:resource="http://www.ontologia-academica.org/academic#EstiloAprendizaje"/>
         <formatoCoincideConEstilo rdf:resource="http://www.ontologia-academica.org/academic#Recurso_Teorico"/>
+        <nombreEstilo>Teorico</nombreEstilo>
     </owl:NamedIndividual>
     
 
@@ -581,6 +556,56 @@
         <unti:tienePreRequisito rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/web6"/>
         <unti:nombreCurso>Proyecto Web Full Stack + Deploy</unti:nombreCurso>
         <unti:semestreCurso rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</unti:semestreCurso>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Est_Ana -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Est_Ana">
+        <rdf:type rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Estudiante"/>
+        <unti:cursaCarrera rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/IngenieriaSoftware"/>
+        <unti:nombrePersona>Ana</unti:nombrePersona>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Est_Carlos_Lopez -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Est_Carlos_Lopez">
+        <rdf:type rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Estudiante"/>
+        <persigueObjetivo rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/desarrolloWeb"/>
+        <poseeHabilidad rdf:resource="http://www.ontologia-academica.org/academic#h_web1"/>
+        <prefiereEstilo rdf:resource="http://www.ontologia-academica.org/academic#practico"/>
+        <unti:cursaCarrera rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/IngenieriaSoftware"/>
+        <unti:nombrePersona>Carlos Lopez</unti:nombrePersona>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Est_Carlos_Lopez2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Est_Carlos_Lopez2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Estudiante"/>
+        <persigueObjetivo rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/desarrolloWeb"/>
+        <poseeHabilidad rdf:resource="http://www.ontologia-academica.org/academic#h_web2"/>
+        <prefiereEstilo rdf:resource="http://www.ontologia-academica.org/academic#practico"/>
+        <unti:cursaCarrera rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/IngenieriaSoftware"/>
+        <unti:nombrePersona>Carlos Lopez2</unti:nombrePersona>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Est_Carlos_Lopez3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Est_Carlos_Lopez3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/Estudiante"/>
+        <persigueObjetivo rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/desarrolloWeb"/>
+        <poseeHabilidad rdf:resource="http://www.ontologia-academica.org/academic#h_web1"/>
+        <poseeHabilidad rdf:resource="http://www.ontologia-academica.org/academic#h_web2"/>
+        <prefiereEstilo rdf:resource="http://www.ontologia-academica.org/academic#practico"/>
+        <unti:cursaCarrera rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/IngenieriaSoftware"/>
+        <unti:nombrePersona>Carlos Lopez3</unti:nombrePersona>
     </owl:NamedIndividual>
     
 
@@ -633,6 +658,7 @@
         <requiereCursoAprobado rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/web5"/>
         <requiereCursoAprobado rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/web6"/>
         <satisfaceObjetivo rdf:resource="http://www.semanticweb.org/user/ontologies/2025/10/untitled-ontology-21/desarrolloWeb"/>
+        <nombreObjetivo>Desarrollo Web</nombreObjetivo>
     </owl:NamedIndividual>
     
 
@@ -745,7 +771,7 @@
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
     <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
         <rdfs:comment></rdfs:comment>
         <rdfs:label>AproboCurso</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
@@ -816,7 +842,7 @@
         </swrl:head>
     </rdf:Description>
     <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
         <rdfs:comment></rdfs:comment>
         <rdfs:label>recomendarCursos</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
@@ -899,7 +925,7 @@
         </swrl:head>
     </rdf:Description>
     <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
         <rdfs:comment></rdfs:comment>
         <rdfs:label>recomiendaRecurso</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
@@ -997,7 +1023,7 @@
         </swrl:head>
     </rdf:Description>
     <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
         <rdfs:comment></rdfs:comment>
         <rdfs:label>recursoIncluidoARuta</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
@@ -1056,7 +1082,7 @@
         </swrl:head>
     </rdf:Description>
     <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
         <rdfs:comment></rdfs:comment>
         <rdfs:label>incluyeCurso</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
@@ -1115,7 +1141,7 @@
         </swrl:head>
     </rdf:Description>
     <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <swrl2:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl2:isRuleEnabled>
         <rdfs:comment></rdfs:comment>
         <rdfs:label>noRecomendarCursos</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
