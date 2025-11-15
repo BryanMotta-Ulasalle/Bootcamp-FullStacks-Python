@@ -7,7 +7,8 @@ from .views import (
     listar_habilidades,
     listar_cursos,
     perfil_estudiante,
-    healthcheck
+    healthcheck,
+    ver_ruta_estudiante
 )
 
 urlpatterns = [
@@ -23,4 +24,7 @@ urlpatterns = [
     path('carreras/', listar_carreras, name='listar_carreras'),
     path('habilidades/', listar_habilidades, name='listar_habilidades'),
     path('cursos/', listar_cursos, name='listar_cursos'),
+
+    path("ruta/<str:nombre_persona>/", ver_ruta_estudiante),
+
 ]

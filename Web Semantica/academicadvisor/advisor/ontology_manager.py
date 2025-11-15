@@ -91,6 +91,113 @@ def obtener_cursos_aprobados(estudiante):
     """
     return inferir_cursos_aprobados(estudiante)
 
+def inferir_cursos_recomendados(estudiante):
+    """
+    Recomienda cursos siguiendo la regla:
+    Estudiante -> persigueObjetivo -> ObjetivoFinal -> requiereCursoAprobado -> Curso
+    y EXCLUYE los cursos ya aprobados.
+    """
+    # 1. Objetivo del estudiante
+    objetivos = getattr(estudiante, "persigueObjetivo", [])
+    if not objetivos:
+        return []
+
+    objetivo = objetivos[0]  # Asumimos un objetivo principal
+
+    # 2. Cursos requeridos por ese objetivo
+    cursos_requeridos = getattr(objetivo, "requiereCursoAprobado", [])
+
+    # 3. Cursos aprobados por inferencia
+    cursos_aprobados = inferir_cursos_aprobados(estudiante)
+
+    # 4. Filtrar: recomendar solo cursos NO aprobados
+    cursos_recomendados = [
+        c for c in cursos_requeridos if c not in cursos_aprobados
+    ]
+
+    return cursos_recomendados
+
+def obtener_cursos_no_aprobados(estudiante):
+    """Retorna los cursos que el estudiante NO ha aprobado."""
+    clases = obtener_clases_ontologia()
+    Curso = clases["Curso"]
+
+    aprobados = inferir_cursos_aprobados(estudiante)
+    todos = list(Curso.instances())
+
+    no_aprobados = [c for c in todos if c not in aprobados]
+    return no_aprobados
+
+def crear_ruta_aprendizaje(estudiante):
+    from .ontology_manager import onto  # asegurar ontología real
+
+    nombre = getattr(estudiante, "nombrePersona", [""])[0]
+    if not nombre:
+        return None
+
+    # 1. Crear nombre único del individuo ruta
+    nombre_ruta = f"ruta_{nombre.replace(' ', '_')}"
+
+    # 2. Verificar si existe la clase RutaDeAprendizaje
+    if not hasattr(onto, "RutaDeAprendizaje"):
+        raise ValueError("La clase 'RutaDeAprendizaje' NO existe en la ontologia.")
+
+    ClaseRuta = onto.RutaDeAprendizaje
+
+    # 3. Crear o recuperar el individuo
+    if hasattr(onto, nombre_ruta):
+        ruta = getattr(onto, nombre_ruta)
+    else:
+        ruta = ClaseRuta(nombre_ruta)
+
+    if ruta is None:
+        raise ValueError("No se pudo crear el individuo ruta. Revisa la clase RutaDeAprendizaje.")
+
+    # 4. Asignar propiedades
+    ruta.esRutaDe.append(estudiante)
+    estudiante.tieneRutaAsignada.append(ruta)
+
+    # 5. Cursos NO aprobados
+    cursos_no_aprobados = obtener_cursos_no_aprobados(estudiante)
+
+    def obtener_semestre(curso):
+        sem = getattr(curso, "semestreCurso", [999])
+        return sem[0] if sem else 999
+
+    cursos_ordenados = sorted(cursos_no_aprobados, key=obtener_semestre)
+
+    for curso in cursos_ordenados:
+        ruta.rutaIncluyeCurso.append(curso)
+
+    # 6. Recursos recomendados
+    recursos = inferir_recursos_recomendados(estudiante)
+
+    recursos_por_curso = {}
+    for curso in cursos_ordenados:
+        recursos_por_curso[curso] = []
+        for rec in recursos:
+            if rec in getattr(curso, "cursoUtilizaRecurso", []):
+                recursos_por_curso[curso].append(rec)
+
+    for curso in cursos_ordenados:
+        for recurso in recursos_por_curso[curso]:
+            ruta.rutaIncluyeRecurso.append(recurso)
+            recurso.recursoRelacionadoConCurso.append(curso)
+
+    return ruta
+
+
+
+def obtener_ruta_estudiante(estudiante):
+    rutas = getattr(estudiante, "tieneRutaAsignada", [])
+    return rutas[0] if rutas else None
+
+def obtener_cursos_en_ruta(ruta):
+    return getattr(ruta, "rutaIncluyeCurso", [])
+
+def obtener_recursos_en_ruta(ruta):
+    return getattr(ruta, "rutaIncluyeRecurso", [])
+
 
 def obtener_cursos_matriculados(estudiante):
     """Retorna lista de cursos en los que está matriculado."""
@@ -131,46 +238,37 @@ def obtener_habilidades_poseidas(estudiante):
         }
         for h in habilidades
     ]
+
 def inferir_recursos_recomendados(estudiante):
     """
-    Aplica en Python la regla:
-    Si un estudiante recomienda un curso y su estilo coincide con el formato
-    de un recurso del curso -> recomendar ese recurso.
+    Recomienda recursos de cursos NO aprobados,
+    cuyo formato coincide con el estilo de aprendizaje del estudiante.
     """
+
+    # 1. Obtener estilo
+    estilo = obtener_estilo_aprendizaje(estudiante)
+    if not estilo:
+        return []
+
+    formatos_estilo = getattr(estilo, "formatoCoincideConEstilo", [])
+
+    # 2. Cursos NO aprobados
+    cursos_no_aprobados = obtener_cursos_no_aprobados(estudiante)
 
     recursos_recomendados = set()
 
-    # 1. Obtener el estilo de aprendizaje del estudiante
-    estilos = getattr(estudiante, "prefiereEstilo", [])
-    if not estilos:
-        return []  # sin estilo, sin inferencia
-    estilo = estilos[0]
-
-    # 2. Obtener formatos asociados a ese estilo
-    formatos_coincidentes = getattr(estilo, "formatoCoincideConEstilo", [])
-
-    # 3. Obtener cursos recomendados por el estudiante
-    cursos_recomendados = getattr(estudiante, "recomienda", [])
-
-    for curso in cursos_recomendados:
-        # 4. Obtener recursos utilizados por ese curso
+    # 3. Recorrer cursos NO aprobados
+    for curso in cursos_no_aprobados:
         recursos = getattr(curso, "cursoUtilizaRecurso", [])
-
         for recurso in recursos:
-            # 5. Formatos asociados al recurso
             formatos_recurso = getattr(recurso, "recursoTieneFormato", [])
 
-            # 6. Verificar coincidencia de formatos
-            if any(f in formatos_recurso for f in formatos_coincidentes):
+            # 4. Coincidencia de formato
+            if any(f in formatos_estilo for f in formatos_recurso):
                 recursos_recomendados.add(recurso)
 
-    # Guardar la inferencia en el objeto estudiante (opcional)
-    if recursos_recomendados:
-        if not hasattr(estudiante, "recomiendaRecurso"):
-            estudiante.recomiendaRecurso = []
-        estudiante.recomiendaRecurso.extend(list(recursos_recomendados))
-
     return list(recursos_recomendados)
+
 
 def obtener_estilo_aprendizaje(estudiante):
     """Retorna el estilo de aprendizaje preferido del estudiante."""
