@@ -128,77 +128,6 @@ def obtener_cursos_no_aprobados(estudiante):
     no_aprobados = [c for c in todos if c not in aprobados]
     return no_aprobados
 
-def crear_ruta_aprendizaje(estudiante):
-    from .ontology_manager import onto  # asegurar ontología real
-
-    nombre = getattr(estudiante, "nombrePersona", [""])[0]
-    if not nombre:
-        return None
-
-    # 1. Crear nombre único del individuo ruta
-    nombre_ruta = f"ruta_{nombre.replace(' ', '_')}"
-
-    # 2. Verificar si existe la clase RutaDeAprendizaje
-    if not hasattr(onto, "RutaDeAprendizaje"):
-        raise ValueError("La clase 'RutaDeAprendizaje' NO existe en la ontologia.")
-
-    ClaseRuta = onto.RutaDeAprendizaje
-
-    # 3. Crear o recuperar el individuo
-    if hasattr(onto, nombre_ruta):
-        ruta = getattr(onto, nombre_ruta)
-    else:
-        ruta = ClaseRuta(nombre_ruta)
-
-    if ruta is None:
-        raise ValueError("No se pudo crear el individuo ruta. Revisa la clase RutaDeAprendizaje.")
-
-    # 4. Asignar propiedades
-    ruta.esRutaDe.append(estudiante)
-    estudiante.tieneRutaAsignada.append(ruta)
-
-    # 5. Cursos NO aprobados
-    cursos_no_aprobados = obtener_cursos_no_aprobados(estudiante)
-
-    def obtener_semestre(curso):
-        sem = getattr(curso, "semestreCurso", [999])
-        return sem[0] if sem else 999
-
-    cursos_ordenados = sorted(cursos_no_aprobados, key=obtener_semestre)
-
-    for curso in cursos_ordenados:
-        ruta.rutaIncluyeCurso.append(curso)
-
-    # 6. Recursos recomendados
-    recursos = inferir_recursos_recomendados(estudiante)
-
-    recursos_por_curso = {}
-    for curso in cursos_ordenados:
-        recursos_por_curso[curso] = []
-        for rec in recursos:
-            if rec in getattr(curso, "cursoUtilizaRecurso", []):
-                recursos_por_curso[curso].append(rec)
-
-    for curso in cursos_ordenados:
-        for recurso in recursos_por_curso[curso]:
-            ruta.rutaIncluyeRecurso.append(recurso)
-            recurso.recursoRelacionadoConCurso.append(curso)
-
-    return ruta
-
-
-
-def obtener_ruta_estudiante(estudiante):
-    rutas = getattr(estudiante, "tieneRutaAsignada", [])
-    return rutas[0] if rutas else None
-
-def obtener_cursos_en_ruta(ruta):
-    return getattr(ruta, "rutaIncluyeCurso", [])
-
-def obtener_recursos_en_ruta(ruta):
-    return getattr(ruta, "rutaIncluyeRecurso", [])
-
-
 def obtener_cursos_matriculados(estudiante):
     """Retorna lista de cursos en los que está matriculado."""
     return list(getattr(estudiante, "estaMatriculadoEn", []))
@@ -620,3 +549,126 @@ def obtener_recursos_en_ruta(ruta):
     if not ruta:
         return []
     return list(getattr(ruta, "incluyeRecursoPrioritario", []))
+
+def crear_ruta_aprendizaje(estudiante):
+    """
+    Crea automáticamente una RutaDeAprendizaje para un estudiante.
+    - Crea individuo ruta_<nombre>
+    - Asigna cursos recomendados ordenados por semestre
+    - Asigna recursos prioritarios según estilo de aprendizaje
+    - Relaciona estudiante <-> ruta con propiedades bidireccionales
+    """
+    try:
+        clases = obtener_clases_ontologia()
+        RutaDeAprendizaje = clases["RutaDeAprendizaje"]
+        onto = clases["onto"]
+        
+        # Obtener nombre del estudiante
+        nombre_persona = getattr(estudiante, "nombrePersona", [])
+        if not nombre_persona or len(nombre_persona) == 0:
+            print("⚠️ Estudiante sin nombre, usando 'Estudiante' por defecto")
+            nombre_estudiante = "Estudiante"
+        else:
+            nombre_estudiante = nombre_persona[0] if isinstance(nombre_persona, list) else str(nombre_persona)
+        
+        nombre_ruta = f"ruta_{nombre_estudiante.replace(' ', '_')}"
+        
+        print(f"🔄 Creando ruta: {nombre_ruta}")
+        
+        # Crear individuo RutaDeAprendizaje
+        nueva_ruta = RutaDeAprendizaje(nombre_ruta)
+        print(f"✅ Individuo RutaDeAprendizaje creado: {nueva_ruta.name}")
+        
+        # 1️⃣ Obtener cursos recomendados (ya calculados)
+        print(f"🔄 Calculando cursos recomendados...")
+        try:
+            cursos_recomendados = inferir_cursos_recomendados(estudiante)
+            print(f"✅ Cursos recomendados: {len(cursos_recomendados)}")
+        except Exception as e:
+            print(f"⚠️ Error al calcular cursos: {e}")
+            cursos_recomendados = []
+        
+        # 2️⃣ Ordenar cursos por semestre
+        def obtener_semestre(curso):
+            semestre = getattr(curso, "semestreCurso", None)
+            if semestre is None:
+                return 999  # Cursos sin semestre van al final
+            if isinstance(semestre, list):
+                return semestre[0] if semestre else 999
+            return semestre
+        
+        cursos_ordenados = sorted(cursos_recomendados, key=obtener_semestre)
+        
+        if cursos_ordenados:
+            print(f"✅ Cursos ordenados: {[c.name for c in cursos_ordenados[:3]]}...")
+        else:
+            print(f"⚠️ No hay cursos para recomendar (puede que ya haya aprobado todos)")
+        
+        # 3️⃣ Obtener recursos recomendados
+        print(f"🔄 Calculando recursos recomendados...")
+        try:
+            recursos_recomendados = inferir_recursos_recomendados(estudiante)
+            print(f"✅ Recursos recomendados: {len(recursos_recomendados)}")
+        except Exception as e:
+            print(f"⚠️ Error al calcular recursos: {e}")
+            recursos_recomendados = []
+        
+        # 4️⃣ Asignar cursos a la ruta usando incluyeCurso
+        if cursos_ordenados:
+            nueva_ruta.incluyeCurso = cursos_ordenados
+            print(f"✅ Cursos asignados a la ruta")
+        else:
+            print(f"ℹ️ No se asignaron cursos (lista vacía)")
+        
+        # 5️⃣ Asignar recursos prioritarios usando incluyeRecursoPrioritario
+        if recursos_recomendados:
+            nueva_ruta.incluyeRecursoPrioritario = recursos_recomendados
+            print(f"✅ Recursos asignados a la ruta")
+        else:
+            print(f"ℹ️ No se asignaron recursos (lista vacía)")
+        
+        # 6️⃣ Relacionar RUTA -> ESTUDIANTE (esRutaDe)
+        nueva_ruta.esRutaDe = [estudiante]
+        print(f"✅ Relación esRutaDe asignada")
+        
+        # 7️⃣ Relacionar ESTUDIANTE -> RUTA (tieneRutaAsignada)
+        estudiante.tieneRutaAsignada = [nueva_ruta]
+        print(f"✅ Relación tieneRutaAsignada asignada")
+        
+        # 8️⃣ Si el estudiante tiene objetivo, relacionar ruta con objetivo
+        objetivo = obtener_objetivo_estudiante(estudiante)
+        if objetivo:
+            nueva_ruta.satisfaceObjetivo = [objetivo]
+            print(f"✅ Objetivo asignado a la ruta: {objetivo.name}")
+        else:
+            print(f"ℹ️ Estudiante sin objetivo definido")
+        
+        print(f"✅ Ruta '{nombre_ruta}' creada exitosamente con {len(cursos_ordenados)} cursos y {len(recursos_recomendados)} recursos")
+
+        onto.save(file=ONTO_PATH)
+
+        """  estudiante.tieneRutaAsignada = [nueva_ruta]
+        print(f"✅ Relación tieneRutaAsignada asignada x2")
+
+        onto.save(file=ONTO_PATH) """
+        
+        return nueva_ruta
+        
+    except Exception as e:
+        print(f"❌ Error en crear_ruta_aprendizaje: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+    
+def obtener_ruta_aprendizaje(estudiante):
+    """Obtiene la ruta de aprendizaje asignada al estudiante."""
+    rutas = getattr(estudiante, "tieneRutaAsignada", [])
+    if rutas and len(rutas) > 0:
+        return rutas[0]
+    return None
+
+def obtener_cursos_en_ruta(ruta):
+    """Obtiene los cursos incluidos en una ruta de aprendizaje."""
+    if not ruta:
+        return []
+    return list(getattr(ruta, "incluyeCurso", []))

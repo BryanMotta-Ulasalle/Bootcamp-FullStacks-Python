@@ -1,5 +1,4 @@
 # advisor/views.py
-# advisor/views.py
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -33,8 +32,8 @@ from .ontology_manager import (
     inferir_recursos_recomendados,
     inferir_cursos_aprobados,
     inferir_cursos_recomendados,
-    obtener_ruta_estudiante,
-    crear_ruta_aprendizaje
+    crear_ruta_aprendizaje,
+    obtener_clases_ontologia
 )
 
 # -----------------------
@@ -215,7 +214,7 @@ def crear_estudiante(request):
         if nuevo_estudiante is None:
             return JsonResponse({"error": "No se pudo crear el estudiante"}, status=400)
 
-        # 2️⃣ Crear automáticamente la ruta del estudiante
+        # 2️⃣ Crear automáticamente la ver del estudiante
         ruta = crear_ruta_aprendizaje(nuevo_estudiante)
 
         # 3️⃣ Guardar ontología
@@ -229,8 +228,7 @@ def crear_estudiante(request):
                 "habilidades": habilidades,
                 "objetivo": objetivo,
                 "estilo": estilo
-            },
-            "ruta": str(ruta.name) if ruta else "No generada"
+            }
         }, status=201)
 
     except ValueError as e:
@@ -239,70 +237,6 @@ def crear_estudiante(request):
     except json.JSONDecodeError:
         return JsonResponse({"error": "JSON invalido en el body"}, status=400)
 
-    except Exception as e:
-        return JsonResponse({"error": f"Error interno: {str(e)}"}, status=500)
-
-
-def ver_ruta_estudiante(request, nombre_persona):
-    """
-    GET /ruta/<nombre_persona>/
-    Devuelve la ruta de aprendizaje asignada al estudiante,
-    incluyendo cursos (ordenados por semestre) y recursos.
-    """
-    try:
-        estudiante = buscar_estudiante(nombre_persona)
-
-        # Obtener la ruta asignada
-        ruta = obtener_ruta_estudiante(estudiante)
-        if not ruta:
-            return JsonResponse({
-                "mensaje": f"El estudiante {nombre_persona} no tiene una ruta asignada."
-            }, status=404)
-
-        ruta_nombre = ruta.name
-
-        # ---------------------------
-        # Obtener cursos de la ruta
-        # ---------------------------
-        cursos = obtener_cursos_en_ruta(ruta)
-
-        def obtener_semestre(curso):
-            sem = getattr(curso, "semestreCurso", [999])
-            return sem[0]
-
-        cursos_ordenados = sorted(cursos, key=obtener_semestre)
-
-        cursos_json = [
-            {
-                "nombre": getattr(c, "nombreCurso", ["Desconocido"])[0],
-                "semestre": obtener_semestre(c)
-            }
-            for c in cursos_ordenados
-        ]
-
-        # ---------------------------
-        # Obtener recursos usados en la ruta
-        # ---------------------------
-        recursos = obtener_recursos_en_ruta(ruta)
-
-        recursos_json = [
-            {
-                "nombre": getattr(r, "nombreRecurso", ["Desconocido"])[0]
-            }
-            for r in recursos
-        ]
-
-        return JsonResponse({
-            "ruta": ruta_nombre,
-            "estudiante": nombre_persona,
-            "total_cursos": len(cursos),
-            "total_recursos": len(recursos),
-            "cursos": cursos_json,
-            "recursos": recursos_json
-        })
-
-    except ValueError as e:
-        return JsonResponse({"error": str(e)}, status=404)
     except Exception as e:
         return JsonResponse({"error": f"Error interno: {str(e)}"}, status=500)
 
@@ -425,3 +359,63 @@ def healthcheck(request):
             "status": "ERROR",
             "error": str(e)
         }, status=500)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def obtener_ruta_estudiante(request, nombre_estudiante):
+    """
+    GET /api/ruta/<nombre_estudiante>/
+    Devuelve la ruta de aprendizaje del estudiante:
+    - cursos ordenados
+    - recursos recomendados
+    """
+
+    try:
+        # 1️⃣ Obtener clases
+        data = obtener_clases_ontologia()
+        onto = data["onto"]
+        Estudiante = data["Estudiante"]
+
+        # 2️⃣ Buscar estudiante
+        estudiantes = [e for e in Estudiante.instances() if e.nombrePersona and e.nombrePersona[0].lower() == nombre_estudiante.lower()]
+
+        if not estudiantes:
+            return JsonResponse({"error": f"No se encontró estudiante '{nombre_estudiante}'"}, status=404)
+
+        estudiante = estudiantes[0]
+
+        # 3️⃣ Obtener o crear ruta
+        ruta = obtener_ruta_aprendizaje(estudiante)
+        if not ruta:
+            ruta = crear_ruta_aprendizaje(estudiante)
+
+        # 4️⃣ Convertir cursos a JSON
+        cursos_json = []
+        for c in obtener_cursos_en_ruta(ruta):
+            cursos_json.append({
+                "id": c.name,
+                "nombre": c.nombreCurso[0] if c.nombreCurso else "",
+                "semestre": c.semestreCurso[0] if c.semestreCurso else None,
+                "creditos": c.creditos[0] if c.creditos else None,
+            })
+
+        # 5️⃣ Convertir recursos a JSON
+        recursos_json = []
+        for r in getattr(ruta, "incluyeRecursoPrioritario", []):
+            recursos_json.append({
+                "id": r.name,
+                "nombre": r.nombreRecurso[0] if r.nombreRecurso else "",
+            })
+
+        # 6️⃣ Serializar respuesta completa
+        resultado = {
+            "estudiante": estudiante.nombrePersona[0] if estudiante.nombrePersona else "",
+            "ruta": ruta.name,
+            "cursos": cursos_json,
+            "recursos": recursos_json
+        }
+
+        return JsonResponse(resultado, safe=False, json_dumps_params={"ensure_ascii": False})
+
+    except Exception as e:
+        return JsonResponse({"error": f"Error interno: {str(e)}"})
