@@ -1,10 +1,13 @@
 # ontology_manager.py
-from owlready2 import get_ontology
+from owlready2 import get_ontology, onto_path
 import os
 
 # Cambia la ruta según tu proyecto
 ONTO_PATH = os.path.join(os.path.dirname(__file__), "ontologia/AppAcademico.owl")
 ONTO_PATH = ONTO_PATH.replace("\\", "/")
+ONTO_DIR = os.path.dirname(ONTO_PATH)
+if ONTO_DIR not in onto_path:
+    onto_path.append(ONTO_DIR)
 onto = get_ontology(f"file://{ONTO_PATH}").load()
 print("Ontología cargada correctamente.")
 

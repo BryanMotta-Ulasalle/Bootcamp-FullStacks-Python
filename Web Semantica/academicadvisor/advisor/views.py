@@ -296,46 +296,65 @@ def listar_cursos(request):
 # =========================================
 def perfil_estudiante(request, nombre_persona):
     """
-    GET /estudiante/<nombre_persona>/
-    Retorna información completa del estudiante.
+    GET /api/estudiante/<nombre_persona>/
+    Retorna información completa del estudiante:
+    - Nombre
+    - Carrera
+    - Cursos aprobados
+    - Habilidades
+    - Objetivo final
+    - Estilo de aprendizaje
     """
     try:
         estudiante = buscar_estudiante(nombre_persona)
-        
+
         # Información básica
         nombre = first_or_default(getattr(estudiante, "nombrePersona", []), "")
-        
+
         # Carrera
         carrera = obtener_carrera_estudiante(estudiante)
         carrera_nombre = first_or_default(getattr(carrera, "nombreCarrera", []), "Sin carrera") if carrera else "Sin carrera"
-        
+
         # Cursos aprobados
         aprobados = obtener_cursos_aprobados(estudiante)
         cursos_aprobados = [
             {
                 "nombre": first_or_default(getattr(c, "nombreCurso", []), "Desconocido"),
-                "semestre": first_or_default(getattr(c, "semestreCurso", []), 0) if hasattr(c, "semestreCurso") else 0
+                "semestre": first_or_default(getattr(c, "semestreCurso", []), 0)
+                if hasattr(c, "semestreCurso") else 0
             }
             for c in aprobados
         ]
-        
-        # Habilidades poseidas
+
+        # Habilidades poseídas
         habilidades = obtener_habilidades_poseidas(estudiante)
-        
+        habilidades_list = [h["nombre"] for h in habilidades] if habilidades else []
+
+        # 🟦 OBJETIVO DEL ESTUDIANTE
+        objetivo = obtener_objetivo_estudiante(estudiante)
+        objetivo_nombre = first_or_default(getattr(objetivo, "nombreObjetivo", []), "Sin objetivo") if objetivo else "Sin objetivo"
+
+        # 🟩 ESTILO DE APRENDIZAJE
+        estilo = obtener_estilo_aprendizaje(estudiante)
+        estilo_nombre = first_or_default(getattr(estilo, "nombreEstilo", []), "Sin estilo") if estilo else "Sin estilo"
+
         return JsonResponse({
             "estudiante": {
                 "nombre": nombre,
                 "carrera": carrera_nombre,
+                "objetivo": objetivo_nombre,
+                "estilo_aprendizaje": estilo_nombre,
                 "cursos_aprobados": cursos_aprobados,
-                "habilidades_poseidas": [h["nombre"] for h in habilidades] if habilidades else [],
-                "total_cursos_aprobados": len(cursos_aprobados)
+                "habilidades_poseidas": habilidades_list,
+                "total_cursos_aprobados": len(cursos_aprobados),
             }
         })
-        
+
     except ValueError as e:
         return JsonResponse({"error": str(e)}, status=404)
     except Exception as e:
         return JsonResponse({"error": f"Error interno: {str(e)}"}, status=500)
+
 
 # =========================================
 # ENDPOINT: Healthcheck
