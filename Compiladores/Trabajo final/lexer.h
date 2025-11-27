@@ -4,17 +4,19 @@
 #include "tokens.h"
 #include <string>
 #include <fstream>
-#include <unordered_map>
 
 class Lexer {
     std::string src;
-    size_t pos = 0;
-    int line = 1;
+    size_t pos;
+    int line;
 
 public:
     Lexer(std::ifstream &in);
 
+    // Devuelve siguiente token y avanza
     Token next();
+
+    // Mira siguiente token sin consumir
     Token peek();
 
 private:
@@ -23,10 +25,11 @@ private:
     char advance();
     bool match(char expected);
 
-    void skipSpaces();
+    void skipSpacesExceptNewline();
+    Token identifierOrKeyword(const std::string &word);
     Token identifier();
     Token number();
     Token stringLiteral();
 };
 
-#endif
+#endif // LEXER_H

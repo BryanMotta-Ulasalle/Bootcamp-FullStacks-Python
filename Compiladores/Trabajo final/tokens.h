@@ -4,7 +4,7 @@
 #include <string>
 
 enum class TokenType {
-    // Palabras clave
+    // Palabras clave y literales
     FUN, END, ELSE, IF, WHILE, LOOP, RETURN,
     TRUE_, FALSE_,
     NEW_, AND_, OR_, NOT_,
@@ -12,10 +12,8 @@ enum class TokenType {
     // Tipos
     INT, BOOL, CHAR, STRING,
 
-    // Literales
+    // Literales y IDs
     LITNUMERAL, LITSTRING,
-
-    // Identificadores
     ID,
 
     // Símbolos
@@ -27,8 +25,10 @@ enum class TokenType {
 
     GT, LT, GE, LE, EQ, NE,
 
-    NL,
-    END_OF_FILE,
+    // Saltos de línea (NL) y fin de archivo
+    NL, END_OF_FILE,
+
+    // Error / inválido
     INVALID
 };
 
@@ -37,8 +37,8 @@ struct Token {
     std::string lexeme;
     int line;
 
-    Token(TokenType t=TokenType::INVALID, std::string l="", int li=0)
-        : type(t), lexeme(l), line(li) {}
+    Token(TokenType t=TokenType::INVALID, const std::string &l="", int ln=0)
+        : type(t), lexeme(l), line(ln) {}
 };
 
-#endif
+#endif // TOKENS_H

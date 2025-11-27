@@ -1,0 +1,6 @@
+fun main()
+s : string
+s = "hola
+return 0
+end
+

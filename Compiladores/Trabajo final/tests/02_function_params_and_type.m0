@@ -1,0 +1,6 @@
+fun sum(a : int, b : int) : int
+result : int
+result = a + b
+return result
+end
+

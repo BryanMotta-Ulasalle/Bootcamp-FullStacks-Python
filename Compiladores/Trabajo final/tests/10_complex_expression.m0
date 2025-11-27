@@ -1,0 +1,7 @@
+fun main()
+r : int
+r = (1 + 2) * (3 + 4) / 7 >= 3 and not (false or (2 < 1))
+print(r)
+return r
+end
+

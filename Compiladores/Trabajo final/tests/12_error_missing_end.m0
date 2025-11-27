@@ -1,0 +1,4 @@
+fun broken()
+x : int
+return 0
+

@@ -1,0 +1,9 @@
+globalVar : int
+
+fun main()
+x : int
+x = globalVar * 2
+print(x)
+return 0
+end
+

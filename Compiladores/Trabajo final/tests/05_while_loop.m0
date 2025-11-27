@@ -1,0 +1,10 @@
+fun countdown()
+i : int
+i = 5
+while i > 0
+print(i)
+i = i - 1
+loop
+return 0
+end
+

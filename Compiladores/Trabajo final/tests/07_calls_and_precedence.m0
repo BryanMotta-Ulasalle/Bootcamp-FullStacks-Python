@@ -1,0 +1,13 @@
+fun add(a : int, b : int) : int
+return a + b
+end
+
+fun main()
+x : int
+y : int
+x = 1 + 2 * 3
+y = add(x, 4) * (2 + 1)
+print(y)
+return 0
+end
+

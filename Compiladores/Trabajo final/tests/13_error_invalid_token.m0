@@ -1,5 +1,6 @@
 fun main()
 x : int
-return 5
+x = 5 $
+return x
 end
 
