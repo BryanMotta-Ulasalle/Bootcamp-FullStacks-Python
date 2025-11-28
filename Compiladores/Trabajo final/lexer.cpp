@@ -1,3 +1,4 @@
+//lexer.cpp
 #include "lexer.h"
 #include <iterator>
 #include <cctype>
@@ -20,19 +21,19 @@ bool Lexer::match(char expected) {
 void Lexer::skipSpacesExceptNewline() {
     while (!eof()) {
         char c = current();
-        if (c == '\r') { advance(); continue; } // ignore CR
+        if (c == '\r') { advance(); continue; } 
         if (c == '\n') break;
         if (isspace(static_cast<unsigned char>(c))) { advance(); continue; }
-        // comments
+        
         if (c == '/' && pos + 1 < src.size()) {
             char n = src[pos+1];
             if (n == '/') {
-                // line comment until newline
+                
                 advance(); advance();
                 while (!eof() && current() != '\n') advance();
                 continue;
             } else if (n == '*') {
-                // block comment
+                
                 advance(); advance();
                 while (!eof()) {
                     if (current() == '*' && pos + 1 < src.size() && src[pos+1] == '/') {
@@ -90,7 +91,7 @@ Token Lexer::number() {
 
 Token Lexer::stringLiteral() {
     std::string lex;
-    // current is opening quote '"', caller should have advanced it
+    
     while (!eof() && current() != '"') {
         if (current() == '\\') {
             advance();
@@ -103,7 +104,7 @@ Token Lexer::stringLiteral() {
         }
     }
     if (eof()) throw std::runtime_error("Lexical error: string no cerrado en línea " + std::to_string(line));
-    advance(); // consume closing "
+    advance(); 
     return Token(TokenType::LITSTRING, lex, line);
 }
 
@@ -112,7 +113,7 @@ Token Lexer::next() {
 
     if (eof()) return Token(TokenType::END_OF_FILE, "", line);
 
-    // Handle newline as distinct token
+    
     if (current() == '\n') {
         advance();
         line++;
@@ -121,7 +122,7 @@ Token Lexer::next() {
 
     char c = advance();
 
-    // Symbols and multi-char operators
+    
     if (c == '(') return Token(TokenType::LPAREN, "(", line);
     if (c == ')') return Token(TokenType::RPAREN, ")", line);
     if (c == '[') return Token(TokenType::LBRACKET, "[", line);
@@ -147,13 +148,12 @@ Token Lexer::next() {
         return Token(TokenType::GT, ">", line);
     }
     if (c == '"') {
-        // string literal: current was '"', so call stringLiteral which expects closing "
         return stringLiteral();
     }
 
-    // identifier or number
+
     if (isalpha(static_cast<unsigned char>(c)) || c == '_') {
-        // roll back one position and call identifier()
+        
         pos--;
         return identifier();
     }
@@ -163,6 +163,6 @@ Token Lexer::next() {
         return number();
     }
 
-    // Unknown
+    
     return Token(TokenType::INVALID, std::string(1,c), line);
 }

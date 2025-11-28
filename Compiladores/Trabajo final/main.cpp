@@ -1,3 +1,4 @@
+//main.cpp
 #include "lexer.h"
 #include "parser.h"
 #include <iostream>
@@ -17,8 +18,8 @@ int main(int argc, char** argv) {
     try {
         Lexer lex(in);
         Parser parser(lex);
-        parser.programa(); // start parsing
-        // ensure EOF consumed
+        parser.programa(); 
+        
         Token t = lex.next();
         if (t.type != TokenType::END_OF_FILE) {
             std::cerr << "Error: tokens sobrantes a partir de línea " << t.line << "\n";

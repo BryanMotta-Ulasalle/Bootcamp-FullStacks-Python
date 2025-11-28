@@ -1,3 +1,4 @@
+//parser.cpp
 #include "parser.h"
 #include <iostream>
 
@@ -20,13 +21,13 @@ void Parser::expect(TokenType t, const std::string &msg) {
 // programa = { NL } { decl } EOF
 // --------------------
 void Parser::programa() {
-    // consume leading NLs
+    
     while (cur.type == TokenType::NL) advance();
 
-    // loop until EOF
+
     while (cur.type != TokenType::END_OF_FILE) {
         if (cur.type == TokenType::NL) {
-            advance(); // allow blank lines between declarations
+            advance(); 
             continue;
         }
 
@@ -35,7 +36,7 @@ void Parser::programa() {
             continue;
         }
 
-        // If we reach here, token is unexpected at top-level
+    
         throw std::runtime_error("Error en linea " + std::to_string(cur.line) + ": Se esperaba declaraciin (fun o ID)");
     }
 }
@@ -56,7 +57,7 @@ void Parser::funcion() {
     expect(TokenType::FUN, "Se esperaba 'fun'");
     expect(TokenType::ID, "Se esperaba identificador de funcion");
     expect(TokenType::LPAREN, "Se esperaba '('");
-    // params
+    
     if (cur.type != TokenType::RPAREN) {
         // parse parametros: ID ":" tipo { ',' ID ':' tipo }
         while (true) {
@@ -79,12 +80,12 @@ void Parser::funcion() {
             throw std::runtime_error("Error en linea " + std::to_string(cur.line) + ": Se esperaba tipo después de ':'");
         advance();
     }
-    // NL mandatory after header
+    
     expect(TokenType::NL, "Se esperaba salto de linea despues del encabezado de funcion");
     // bloque
     bloque();
     expect(TokenType::END, "Se esperaba 'end' al finalizar la funcion");
-    // NL mandatory after end
+    
     expect(TokenType::NL, "Se esperaba salto de linea despues de 'end'");
 }
 
@@ -102,7 +103,7 @@ void Parser::declvar() {
         throw std::runtime_error("Error en línea " + std::to_string(cur.line) + ": Se esperaba tipo en declaración de variable");
     }
     advance();
-    // optional array suffixes: { '[' ']' }
+    
     while (cur.type == TokenType::LBRACKET) {
         advance();
         expect(TokenType::RBRACKET, "Se esperaba ']'");
@@ -111,7 +112,7 @@ void Parser::declvar() {
 
 // bloque = { declvar NL } { comando NL }
 void Parser::bloque() {
-    // declarations first
+    
     while (cur.type == TokenType::ID) {
         Token nextTok = peek();
         if (nextTok.type == TokenType::COLON) {
@@ -122,7 +123,7 @@ void Parser::bloque() {
         break;
     }
 
-    // commands until end/else/loop/EOF
+    
     while (cur.type != TokenType::END && cur.type != TokenType::ELSE && cur.type != TokenType::LOOP && cur.type != TokenType::END_OF_FILE) {
         comando();
         expect(TokenType::NL, "Se esperaba salto de linea despues de comando");
@@ -149,18 +150,18 @@ void Parser::cmdif() {
     exp();
     expect(TokenType::NL, "Se esperaba salto de linea después de condicion 'if'");
     bloque();
-    // else if chain
+    
     while (cur.type == TokenType::ELSE) {
         Token nxt = peek();
         if (nxt.type == TokenType::IF) {
-            advance(); // ELSE
+            advance(); 
             expect(TokenType::IF, "Se esperaba 'if' después de 'else'");
             exp();
             expect(TokenType::NL, "Se esperaba salto de linea después de 'else if' condicion");
             bloque();
         } else break;
     }
-    // optional else
+    
     if (cur.type == TokenType::ELSE) {
         advance();
         expect(TokenType::NL, "Se esperaba salto de linea después de 'else'");

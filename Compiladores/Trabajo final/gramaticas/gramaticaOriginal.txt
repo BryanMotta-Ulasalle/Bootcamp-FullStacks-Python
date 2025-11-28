@@ -1,0 +1,97 @@
+(* Programa principal *)
+Programa =
+    { DeclGlobal | FunDecl }
+    EOF
+;
+
+(* Declaraciones globales y funciones *)
+DeclGlobal =
+    Tipo ID [ '=' Expresion ] NL
+;
+
+FunDecl =
+    'fun' ID '(' [ ParamList ] ')' NL
+    { DeclLocal | Comando }
+    'end' NL
+;
+
+ParamList =
+    Param { ',' Param }
+;
+Param =
+    Tipo ID
+;
+
+DeclLocal =
+    Tipo ID [ '=' Expresion ] NL
+;
+
+(* Comandos *)
+Comando =
+      Asignacion
+    | Llamada
+    | If
+    | While
+    | Return
+;
+
+Asignacion =
+    ID { '[' Expresion ']' } '=' Expresion NL
+;
+
+Llamada =
+    ID '(' [ ArgList ] ')' NL
+;
+
+If =
+    'if' Expresion NL
+      { Comando }
+    [ 'else' NL { Comando } ]
+    'end' NL
+;
+
+While =
+    'while' Expresion NL
+      { Comando }
+    'loop' NL
+;
+
+Return =
+    'return' [ Expresion ] NL
+;
+
+ArgList =
+    Expresion { ',' Expresion }
+;
+
+(* Expresiones (recursivas a la izquierda en la gramática original) *)
+Expresion =
+      Expresion '+' Term
+    | Expresion '-' Term
+    | Term
+;
+
+Term =
+      Term '*' Factor
+    | Term '/' Factor
+    | Factor
+;
+
+Factor =
+      LITNUMERAL
+    | LITSTRING
+    | TRUE_ | FALSE_
+    | ID
+    | ID '(' [ ArgList ] ')'    (* llamada ambigua con ID *)
+    | ID '[' Expresion ']'      (* acceso a arreglo *)
+    | 'new' '[' Expresion ']' Tipo
+    | '(' Expresion ')'
+    | '-' Factor
+    | 'not' Factor
+;
+
+(* Tipos (forma original: puede ser base o array antepuesto) *)
+Tipo =
+      'int' | 'bool' | 'char' | 'string'
+    | '[' ']' Tipo
+;

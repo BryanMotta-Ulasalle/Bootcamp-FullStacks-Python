@@ -1,0 +1,135 @@
+(* --- Programa --- *)
+Programa =
+    { TopDecl }
+    EOF
+;
+
+TopDecl =
+      FunDecl
+    | DeclGlobal
+;
+
+DeclGlobal =
+    ID ':' Tipo NL
+;
+
+(* --- Funciones --- *)
+FunDecl =
+    'fun' ID '(' [ ParamList ] ')' [ ':' Tipo ] NL
+    Bloque
+    'end' NL
+;
+
+ParamList =
+    Param { ',' Param }
+;
+Param =
+    ID ':' Tipo
+;
+
+(* --- Bloques: primero declvars, luego comandos --- *)
+Bloque =
+    { DeclLocal }
+    { Comando }
+;
+
+DeclLocal =
+    ID ':' Tipo NL
+;
+
+(* --- Comandos --- *)
+Comando =
+      CmdIf
+    | CmdWhile
+    | CmdReturn
+    | LlamadaStmt
+    | CmdAtrib
+;
+
+LlamadaStmt = Llamada ;   (* llamada usada como sentencia *)
+Llamada =
+    ID '(' [ ArgList ] ')'
+;
+
+ArgList =
+    Expresion { ',' Expresion }
+;
+
+CmdIf =
+    'if' Expresion NL
+    Bloque
+    { 'else' 'if' Expresion NL Bloque }   (* else-if en cadena *)
+    [ 'else' NL Bloque ]
+    'end'
+;
+
+CmdWhile =
+    'while' Expresion NL
+    Bloque
+    'loop'
+;
+
+CmdAtrib =
+    Var '=' Expresion
+;
+
+CmdReturn =
+    'return' [ Expresion ]
+;
+
+Var =
+    ID { '[' Expresion ']' }
+;
+
+(* --- Expresiones: sin recursión izquierda, niveles de precedencia --- *)
+Expresion = OrExp ;
+
+OrExp =
+    AndExp { 'or' AndExp }
+;
+
+AndExp =
+    CmpExp { 'and' CmpExp }
+;
+
+CmpExp =
+    AddExp { ( '==' | '<>' | '>' | '<' | '>=' | '<=' ) AddExp }
+;
+
+AddExp =
+    MulExp { ( '+' | '-' ) MulExp }
+;
+
+MulExp =
+    UnaryExp { ( '*' | '/' ) UnaryExp }
+;
+
+UnaryExp =
+      '-' UnaryExp
+    | 'not' UnaryExp
+    | Primary
+;
+
+Primary =
+      LITNUMERAL
+    | LITSTRING
+    | TRUE_ | FALSE_
+    | ID PrimaryTail
+    | '(' Expresion ')'
+    | 'new' '[' Expresion ']' Tipo
+;
+
+PrimaryTail =
+      '(' [ ArgList ] ')'        (* llamada *)
+    | '[' Expresion ']'         (* indexación; puede repetirse porque Var permite { [Exp] } *)
+    | ε
+;
+
+(* --- Tipos (soporta arreglos como sufijo o prefijo según convención; aquí se admite sufijo) --- *)
+Tipo =
+    BaseType { '[' ']' }   (* tipo base con sufijos '[]' repetidos *)
+;
+
+BaseType =
+    'int' | 'bool' | 'char' | 'string'
+;
